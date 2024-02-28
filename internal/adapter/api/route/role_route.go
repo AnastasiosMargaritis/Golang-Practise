@@ -9,10 +9,10 @@ import (
 	"github.com/jackc/pgx/v5"
 )
 
-func NewRoleRouter(db *pgx.Conn, router *gin.Engine) {
+func NewRoleRouter(db *pgx.Conn, group *gin.RouterGroup) {
 	roleRepo := persistence.NewRoleRepository(db)
 	roleUseCase := usecase.NewRoleUseCase(roleRepo)
 	roleController := api.NewRoleController(roleUseCase)
 
-	router.GET("/roles", roleController.ListRoles)
+	group.GET("/roles", roleController.ListRoles)
 }
