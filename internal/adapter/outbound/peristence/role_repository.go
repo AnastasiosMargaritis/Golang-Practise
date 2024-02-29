@@ -2,7 +2,6 @@ package persistence
 
 import (
 	"context"
-	"fmt"
 	"online-script/internal/core/domain"
 
 	"github.com/jackc/pgx/v5"
@@ -19,8 +18,8 @@ func NewRoleRepository(db *pgx.Conn) domain.RoleRepository {
 }
 
 // ListRoles retrieves a list of roles from the database with pagination.
-func (r *RoleRepository) ListRoles(ctx context.Context, params domain.ListRolesParams) ([]domain.SecRole, error) {
-	rows, err := r.db.Query(ctx, "SELECT * FROM sec_role ORDER BY role_id LIMIT $1 OFFSET $2", params.Limit, params.Offset)
+func (r *RoleRepository) ListRoles(ctx context.Context) ([]domain.SecRole, error) {
+	rows, err := r.db.Query(ctx, "SELECT * FROM sec_role ORDER BY role_id")
 	if err != nil {
 		return nil, err
 	}
@@ -36,7 +35,6 @@ func (r *RoleRepository) ListRoles(ctx context.Context, params domain.ListRolesP
 		roles = append(roles, role)
 	}
 
-	fmt.Println(roles)
 	if err := rows.Err(); err != nil {
 		return nil, err
 	}

@@ -15,6 +15,6 @@ func NewRoleUseCase(roleRepository domain.RoleRepository) domain.RoleUsecase {
 	}
 }
 
-func (roleUsecase *roleUsecase) ListRoles(c context.Context, params domain.ListRolesParams) ([]domain.SecRole, error) {
-	return roleUsecase.roleRepository.ListRoles(c, params)
+func (roleUsecase *roleUsecase) ListRoles(c context.Context) ([]domain.SecRole, error) {
+	return roleUsecase.roleRepository.ListRoles(c)
 }
