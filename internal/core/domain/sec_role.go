@@ -13,9 +13,11 @@ type ListRolesParams struct {
 }
 
 type RoleRepository interface {
+	// Method fetches roles based on page and size
 	ListRoles(ctx context.Context, params ListRolesParams) ([]SecRole, error)
 }
 
 type RoleUsecase interface {
+	// Method fetches roles based on page and size
 	ListRoles(ctx context.Context, params ListRolesParams) ([]SecRole, error)
 }

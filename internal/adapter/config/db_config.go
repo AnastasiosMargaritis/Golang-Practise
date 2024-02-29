@@ -1,6 +1,12 @@
 package config
 
-import "github.com/spf13/viper"
+import (
+	"context"
+	"fmt"
+	"log"
+
+	"github.com/jackc/pgx/v5"
+)
 
 type Config struct {
 	DBUser        string `mapstructure:"DB_USER"`
@@ -11,18 +17,20 @@ type Config struct {
 	ServerAddress string `mapstructure:"SERVER_ADDRESS"`
 }
 
-func LoadConfig(path string) (config Config, err error) {
-	viper.AddConfigPath(path)
-	viper.SetConfigName("app")
-	viper.SetConfigType("env")
+func NewPostgresDB(env *Env) *pgx.Conn {
+	dbHost := env.DBHost
+	dbPort := env.DBPort
+	dbUser := env.DBUser
+	dbPass := env.DBPassword
+	dbName := env.DBName
 
-	viper.AutomaticEnv()
-	err = viper.ReadInConfig()
+	var dbURL string = fmt.Sprintf("postgresql://%s:%s@%s:%s/%s", dbUser, dbPass, dbHost, dbPort, dbName)
+
+	conn, err := pgx.Connect(context.Background(), dbURL)
 
 	if err != nil {
-		return
+		log.Fatal("cannot connect to db: ", err)
 	}
 
-	err = viper.Unmarshal(&config)
-	return
+	return conn
 }

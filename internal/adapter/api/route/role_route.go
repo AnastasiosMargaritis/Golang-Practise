@@ -11,8 +11,9 @@ import (
 
 func NewRoleRouter(db *pgx.Conn, group *gin.RouterGroup) {
 	roleRepo := persistence.NewRoleRepository(db)
-	roleUseCase := usecase.NewRoleUseCase(roleRepo)
-	roleController := api.NewRoleController(roleUseCase)
+	roleController := &api.RoleController{
+		RoleUseCase: usecase.NewRoleUseCase(roleRepo),
+	}
 
 	group.GET("/roles", roleController.ListRoles)
 }
