@@ -43,3 +43,15 @@ func (r *RoleRepository) ListRoles(ctx context.Context) ([]domain.SecRole, error
 
 	return roles, nil
 }
+
+const getRole = `-- name: GetRole :one
+SELECT role_id, role_name FROM sec_role
+WHERE role_id = $1
+`
+
+func (r *RoleRepository) GetRole(ctx context.Context, roleID int64) (domain.SecRole, error) {
+	row := r.db.QueryRow(ctx, getRole, roleID)
+	var i domain.SecRole
+	err := row.Scan(&i.RoleID, &i.RoleName)
+	return i, err
+}

@@ -8,11 +8,17 @@ type SecRole struct {
 }
 
 type RoleRepository interface {
-	// Method fetches roles based on page and size
+	// Method fetches all roles
 	ListRoles(ctx context.Context) ([]SecRole, error)
+
+	// Method fetches role by id
+	GetRole(ctx context.Context, roleID int64) (SecRole, error)
 }
 
 type RoleUsecase interface {
 	// Method fetches roles based on page and size
 	ListRoles(ctx context.Context) ([]SecRole, error)
+
+	// Method fetches roles based on page and size
+	GetRole(ctx context.Context, roleID int64) (SecRole, error)
 }
