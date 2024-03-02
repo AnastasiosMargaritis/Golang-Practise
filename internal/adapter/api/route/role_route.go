@@ -15,5 +15,5 @@ func NewRoleRouter(db *pgx.Conn, group *gin.RouterGroup) {
 		RoleUseCase: usecase.NewRoleUseCase(roleRepo),
 	}
 
-	group.GET("/roles", roleController.ListRoles)
+	group.GET("/roles/getAllRoles", roleController.ListRoles)
 }

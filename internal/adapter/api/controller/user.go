@@ -17,6 +17,7 @@ func (controller *UserController) CreateUser(c *gin.Context) {
 	err := c.ShouldBindJSON(&req)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, domain.ErrorResponse{Message: err.Error()})
+		return
 	}
 
 	createdUser, err := controller.UserUseCase.CreateUser(c, req)

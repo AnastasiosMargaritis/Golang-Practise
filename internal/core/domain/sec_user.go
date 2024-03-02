@@ -18,12 +18,12 @@ type SecUser struct {
 }
 
 type CreateUserReq struct {
-	Username  string `json:"username" binding:"required"`
-	Password  string `json:"password" binding:"required"`
-	FirstName string `json:"firstName" binding:"required"`
-	LastName  string `json:"lastName" binding:"required"`
-	Email     string `json:"email" binding:"required, email"`
-	RoleID    int64  `json:"roleId" binding:"required"`
+	Username  string `json:"username" binding:"required,alphanum"`
+	Password  string `json:"password" binding:"required,alphanum"`
+	FirstName string `json:"firstName" binding:"required,alphanum"`
+	LastName  string `json:"lastName" binding:"required,alphanum"`
+	Email     string `json:"email" binding:"required,email"`
+	RoleID    int64  `json:"roleId" binding:"required,min=1"`
 }
 
 type UserRepository interface {

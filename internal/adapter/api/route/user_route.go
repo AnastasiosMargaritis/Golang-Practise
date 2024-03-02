@@ -14,5 +14,5 @@ func NewUserRouter(db *pgx.Conn, group *gin.RouterGroup) {
 	userController := &api.UserController{
 		UserUseCase: usecase.NewUserUseCase(userRepository),
 	}
-	group.POST("/createUser", userController.CreateUser)
+	group.POST("/users/createUser", userController.CreateUser)
 }
