@@ -18,6 +18,8 @@ func NewRoleRepository(db *pgx.Conn) domain.RoleRepository {
 }
 
 // ListRoles retrieves a list of roles from the database with pagination.
+// The roles data are stored via demo data, and the access to those is read only.
+// For a role record to be modified it needs to be accessed through db.
 func (r *RoleRepository) ListRoles(ctx context.Context) ([]domain.SecRole, error) {
 	rows, err := r.db.Query(ctx, "SELECT * FROM sec_role ORDER BY role_id")
 	if err != nil {
