@@ -1,6 +1,8 @@
 package config
 
-import "github.com/jackc/pgx/v5"
+import (
+	"github.com/jackc/pgx/v5"
+)
 
 type Application struct {
 	Env      *Env

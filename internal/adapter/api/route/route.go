@@ -6,6 +6,7 @@ import (
 )
 
 func Setup(db *pgx.Conn, gin *gin.Engine) {
+	// Register routes
 	publicRouter := gin.Group("")
 	NewRoleRouter(db, publicRouter)
 	NewUserRouter(db, publicRouter)

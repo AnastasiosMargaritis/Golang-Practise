@@ -18,8 +18,8 @@ type SecUser struct {
 }
 
 type CreateUserReq struct {
-	Username  string `json:"username" binding:"required,alphanum"`
-	Password  string `json:"password" binding:"required,alphanum"`
+	Username  string `json:"username" binding:"required,username"`
+	Password  string `json:"password" binding:"required"`
 	FirstName string `json:"firstName" binding:"required,alphanum"`
 	LastName  string `json:"lastName" binding:"required,alphanum"`
 	Email     string `json:"email" binding:"required,email"`
@@ -35,6 +35,12 @@ type UserRepository interface {
 
 	// Find a user by Id
 	GetUserById(ctx context.Context, userId pgtype.UUID) (SecUser, error)
+
+	// Find a user by username
+	GetByUsername(ctx context.Context, username string) (SecUser, error)
+
+	// Find a user by email
+	GetByEmail(ctx context.Context, email string) (SecUser, error)
 }
 
 type UserUseCase interface {
@@ -46,4 +52,10 @@ type UserUseCase interface {
 
 	// Find a user by Id
 	GetUserById(ctx context.Context, userId pgtype.UUID) (SecUser, error)
+
+	// Find a user by username
+	GetByUsername(ctx context.Context, username string) (SecUser, error)
+
+	// Find a user by email
+	GetByEmail(ctx context.Context, email string) (SecUser, error)
 }

@@ -101,3 +101,45 @@ func (userRepository *UserRepository) GetUserById(ctx context.Context, userID pg
 	)
 	return i, err
 }
+
+const getByEmail = `-- name: GetByEmail :one
+SELECT user_id, username, hashed_password, first_name, last_name, email, created_at, role_id FROM public.sec_user
+WHERE email = $1
+`
+
+func (userRepository *UserRepository) GetByEmail(ctx context.Context, email string) (domain.SecUser, error) {
+	row := userRepository.db.QueryRow(ctx, getByEmail, email)
+	var i domain.SecUser
+	err := row.Scan(
+		&i.UserID,
+		&i.Username,
+		&i.HashedPassword,
+		&i.FirstName,
+		&i.LastName,
+		&i.Email,
+		&i.CreatedAt,
+		&i.RoleID,
+	)
+	return i, err
+}
+
+const getByUsername = `-- name: GetByUsername :one
+SELECT user_id, username, hashed_password, first_name, last_name, email, created_at, role_id FROM public.sec_user
+WHERE username = $1
+`
+
+func (userRepository *UserRepository) GetByUsername(ctx context.Context, username string) (domain.SecUser, error) {
+	row := userRepository.db.QueryRow(ctx, getByUsername, username)
+	var i domain.SecUser
+	err := row.Scan(
+		&i.UserID,
+		&i.Username,
+		&i.HashedPassword,
+		&i.FirstName,
+		&i.LastName,
+		&i.Email,
+		&i.CreatedAt,
+		&i.RoleID,
+	)
+	return i, err
+}

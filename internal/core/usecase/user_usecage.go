@@ -28,3 +28,11 @@ func (userUseCase *userUseCase) DeleteUser(ctx context.Context, userId pgtype.UU
 func (userUseCase *userUseCase) GetUserById(ctx context.Context, userId pgtype.UUID) (domain.SecUser, error) {
 	return userUseCase.userRepository.GetUserById(ctx, userId)
 }
+
+func (userUseCase *userUseCase) GetByUsername(ctx context.Context, username string) (domain.SecUser, error) {
+	return userUseCase.userRepository.GetByUsername(ctx, username)
+}
+
+func (userUseCase *userUseCase) GetByEmail(ctx context.Context, email string) (domain.SecUser, error) {
+	return userUseCase.userRepository.GetByEmail(ctx, email)
+}
