@@ -18,11 +18,11 @@ type SecUser struct {
 }
 
 type CreateUserReq struct {
-	Username  string `json:"username" binding:"required,username"`
+	Username  string `json:"username" binding:"required,validateUsername"`
 	Password  string `json:"password" binding:"required"`
 	FirstName string `json:"firstName" binding:"required,alphanum"`
 	LastName  string `json:"lastName" binding:"required,alphanum"`
-	Email     string `json:"email" binding:"required,email"`
+	Email     string `json:"email" binding:"required"`
 	RoleID    int64  `json:"roleId" binding:"required,min=1"`
 }
 

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"online-script/internal/adapter/api/custom_validator"
 	"online-script/internal/adapter/api/route"
 	"online-script/internal/adapter/config"
 
@@ -15,5 +16,6 @@ func main() {
 	gin := gin.Default()
 
 	route.Setup(db, gin)
+	custom_validator.Setup(db)
 	gin.Run(env.ServerAddress)
 }

@@ -14,15 +14,14 @@ type UserController struct {
 func (controller *UserController) CreateUser(c *gin.Context) {
 	var req domain.CreateUserReq
 
-	err := c.ShouldBindJSON(&req)
-	if err != nil {
+	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, domain.ErrorResponse{Message: err.Error()})
 		return
 	}
 
 	createdUser, err := controller.UserUseCase.CreateUser(c, req)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, domain.ErrorResponse{Message: err.Error()})
+		c.JSON(http.StatusBadRequest, domain.ErrorResponse{Message: "Username in use."})
 		return
 	}
 
