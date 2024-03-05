@@ -20,8 +20,8 @@ func NewUserValidator(db *pgx.Conn) {
 		// Retrieve the username value
 		username := fl.Field().String()
 
-		_, err := userUseCase.GetByUsername(context.Background(), username)
-		return err == nil
+		user, _ := userUseCase.GetByUsername(context.Background(), username)
+		return user.Username == ""
 	}
 
 	if validator, ok := binding.Validator.Engine().(*validator.Validate); ok {

@@ -15,7 +15,7 @@ func main() {
 
 	gin := gin.Default()
 
-	route.Setup(db, gin)
+	route.Setup(env, db, gin)
 	custom_validator.Setup(db)
 	gin.Run(env.ServerAddress)
 }

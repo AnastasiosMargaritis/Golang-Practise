@@ -2,6 +2,7 @@ package persistence
 
 import (
 	"context"
+	"fmt"
 
 	"online-script/internal/core/domain"
 
@@ -49,6 +50,7 @@ func (userRepository *UserRepository) CreateUser(ctx context.Context, req domain
 		RoleID:         req.RoleID,
 	}
 
+	fmt.Println(arg)
 	row := userRepository.db.QueryRow(ctx, createUser,
 		arg.UserID,
 		arg.Username,
